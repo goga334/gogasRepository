@@ -1,0 +1,37 @@
+stages:
+  - build
+  - test
+  - deployvariables:
+  AWS_ACCESS_KEY_ID: "AKIAIOSFODNN7EXAMPLE"build:
+  stage: build
+  image: docker:stable
+  services:
+    - docker:dind
+  script:
+    - docker pull nginx:latest
+    - git --version
+    - ls -lsa
+    - uname -a
+    - mkdir TEST
+    - touch hello.txt
+    - echo "GITLAB_CI_">> hello.txt
+    - echo $AWS_ACCESS_KEY_ID
+    - pwd
+  variables:
+    AWS: "777"
+    KEY: "Y"
+  artifacts:
+   paths:
+    - hello.txt
+   expire_in: 20mtest:
+  stage: test
+  script:
+    - ls -lsa
+    - echo "*********************88888**************">> 
+hello.txt
+    - pwd
+    - python3 --versiondeploytostage:
+  stage: deploy
+  script:
+    - whoami
+  when: manual
